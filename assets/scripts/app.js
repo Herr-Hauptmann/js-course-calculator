@@ -1,11 +1,7 @@
 //Global variables
 const initialValue = 0;
-let currentResult = initialValue;
+let trenutniRezultat = initialValue;
 let logEntries = [];
-
-// console.log(typeof {ime: "Tarik", age : 12})
-// console.log(typeof 1)
-// console.log(typeof "neka recenica.")
 
 //Button event listerers
 addBtn.addEventListener("click", add);
@@ -15,7 +11,7 @@ divideBtn.addEventListener("click", divide);
 
 //Functions
 function getUserInputValue() {
-  return parseInt(userInput.value);
+  return parse(userInput.value);
 }
 
 //This function edits the result div in the HTML
@@ -25,7 +21,7 @@ function createAndWriteOutput(
   operator
 ) {
   const calculationDescription = `${resultBeforeCalculation} ${operator} ${userInputValue}`;
-  outputResult(currentResult, calculationDescription); //Calls a function from vendor.js
+  outputResult(trenutniRezultat, calculationDescription); //Calls a function from vendor.js
 }
 
 function writeToLog(operationName, prevResult, userNumber, newResult) {
@@ -41,45 +37,32 @@ function writeToLog(operationName, prevResult, userNumber, newResult) {
 
 function add() {
   const userInputValue = getUserInputValue();
-  const resultBeforeCalculation = currentResult;
-  currentResult += userInputValue;
+  const resultBeforeCalculation = trenutniRezultat;
+  trenutniRezultat += userInputValue;
   createAndWriteOutput(resultBeforeCalculation, userInputValue, "+");
-  writeToLog("ADD", resultBeforeCalculation, userInputValue, currentResult);
+  writeToLog("ADD", resultBeforeCalculation, userInputValue, trenutniRezultat);
 }
 
 function subtract() {
   const userInputValue = getUserInputValue();
-  const resultBeforeCalculation = currentResult;
-  currentResult -= userInputValue;
+  const resultBeforeCalculation = trenutniRezultat;
+  trenutniRezultat -= userInputValue;
   createAndWriteOutput(resultBeforeCalculation, userInputValue, "-");
-  writeToLog("SUBTRACT", resultBeforeCalculation, userInputValue, currentResult);
+  writeToLog("SUBTRACT", resultBeforeCalculation, userInputValue, trenutniRezultat);
 }
 
 function multiply() {
   const userInputValue = getUserInputValue();
-  const resultBeforeCalculation = currentResult;
-  currentResult *= userInputValue;
+  const resultBeforeCalculation = trenutniRezultat;
+  trenutniRezultat *= userInputValue;
   createAndWriteOutput(resultBeforeCalculation, userInputValue, "*");
-  writeToLog("MULTIPLY", resultBeforeCalculation, userInputValue, currentResult);
+  writeToLog("MULTIPLY", resultBeforeCalculation, userInputValue, trenutniRezultat);
 }
 
 function divide() {
   const userInputValue = getUserInputValue();
-  const resultBeforeCalculation = currentResult;
-  currentResult /= userInputValue;
+  const resultBeforeCalculation = trenutniRezultat;
+  trenutniRezultat /= userInputValue;
   createAndWriteOutput(resultBeforeCalculation, userInputValue, "/");
-  writeToLog("DIVIDE", resultBeforeCalculation, userInputValue, currentResult);
+  writeToLog("DIVIDE", resultBeforeCalculation, userInputValue, trenutniRezultat);
 }
-
-// ++varijabla
-// function prvoPlus(varijabla){
-//     varijabla = varijabla+1;
-//     return varijabla;
-// }
-
-// varijabla++
-// function prvoVarijabla(varijabla){
-//     let kopija = varijabla;
-//     varijabla = varijabla+1;
-//     return kopija;
-// }
