@@ -1,6 +1,6 @@
 //Global variables
 const initialValue = 0;
-let trenutniRezultat = initialValue;
+let currentResult = initialValue;
 let logEntries = [];
 
 //Button event listerers
@@ -11,7 +11,7 @@ divideBtn.addEventListener("click", divide);
 
 //Functions
 function getUserInputValue() {
-  return parse(userInput.value);
+  return parseInt(userInput.value);
 }
 
 //This function edits the result div in the HTML
@@ -21,7 +21,7 @@ function createAndWriteOutput(
   operator
 ) {
   const calculationDescription = `${resultBeforeCalculation} ${operator} ${userInputValue}`;
-  outputResult(trenutniRezultat, calculationDescription); //Calls a function from vendor.js
+  outputResult(currentResult, calculationDescription); //Calls a function from vendor.js
 }
 
 function writeToLog(operationName, prevResult, userNumber, newResult) {
@@ -32,37 +32,55 @@ function writeToLog(operationName, prevResult, userNumber, newResult) {
     result: newResult,
   };
   logEntries.push(logEntry);
-  console.log(logEntry.number);
+  // console.log(logEntry.number);
+}
+
+function calculateResult(operation){
+  //Provjera da li je tip operacije definisan
+  if(operation != "ADD" && operation != "SUBTRACT" && operation != "MULTIPLY" && operation != "DIVIDE")
+  {
+    console.log("Nepoznat parametar");
+    return;
+  }
+  
+  const userInputValue = getUserInputValue();
+  const resultBeforeCalculation = currentResult;
+  
+  //Provjera tipa operacije
+  if(operation == "ADD")
+  {
+    currentResult += userInputValue;
+    createAndWriteOutput(resultBeforeCalculation, userInputValue, "+");
+  }
+  else if(operation == "SUBTRACT"){
+    currentResult -= userInputValue;
+    createAndWriteOutput(resultBeforeCalculation, userInputValue, "-");
+  }
+  else if(operation == "MULTIPLY"){
+    currentResult *= userInputValue;
+    createAndWriteOutput(resultBeforeCalculation, userInputValue, "*");
+  }
+  else if(operation == "DIVIDE"){
+    currentResult /= userInputValue;
+    createAndWriteOutput(resultBeforeCalculation, userInputValue, "/");
+  }
+
+
+  writeToLog(operation, resultBeforeCalculation, userInputValue, currentResult);
 }
 
 function add() {
-  const userInputValue = getUserInputValue();
-  const resultBeforeCalculation = trenutniRezultat;
-  trenutniRezultat += userInputValue;
-  createAndWriteOutput(resultBeforeCalculation, userInputValue, "+");
-  writeToLog("ADD", resultBeforeCalculation, userInputValue, trenutniRezultat);
+  calculateResult("ADD");
 }
 
 function subtract() {
-  const userInputValue = getUserInputValue();
-  const resultBeforeCalculation = trenutniRezultat;
-  trenutniRezultat -= userInputValue;
-  createAndWriteOutput(resultBeforeCalculation, userInputValue, "-");
-  writeToLog("SUBTRACT", resultBeforeCalculation, userInputValue, trenutniRezultat);
+  calculateResult("SUBTRACT");
 }
 
 function multiply() {
-  const userInputValue = getUserInputValue();
-  const resultBeforeCalculation = trenutniRezultat;
-  trenutniRezultat *= userInputValue;
-  createAndWriteOutput(resultBeforeCalculation, userInputValue, "*");
-  writeToLog("MULTIPLY", resultBeforeCalculation, userInputValue, trenutniRezultat);
+  calculateResult("MULTIPLY");
 }
 
 function divide() {
-  const userInputValue = getUserInputValue();
-  const resultBeforeCalculation = trenutniRezultat;
-  trenutniRezultat /= userInputValue;
-  createAndWriteOutput(resultBeforeCalculation, userInputValue, "/");
-  writeToLog("DIVIDE", resultBeforeCalculation, userInputValue, trenutniRezultat);
+  calculateResult("DIVIDE");
 }
