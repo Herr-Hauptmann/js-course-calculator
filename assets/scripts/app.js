@@ -49,6 +49,9 @@ function calculateResult(operation) {
 
   const userInputValue = getUserInputValue();
 
+  //0 +
+  //0 /
+  // "" i bilo koja operacija
   const dijeljenjeNulom = userInputValue === 0 && operation === "DIVIDE";
   const unesenoNestoStoNijeNulaINevalidanUnos = userInputValue != 0 && !userInputValue;
   
@@ -56,6 +59,14 @@ function calculateResult(operation) {
     console.log("Korisnicki unos nije validan");
     return;
   }
+
+  // if (isNaN(userInputValue))
+  // {
+  //   console.log("NaN");
+  // }
+  // else{
+  //   console.log("Nije NaN")
+  // }
 
   const resultBeforeCalculation = currentResult;
 
