@@ -35,36 +35,44 @@ function writeToLog(operationName, prevResult, userNumber, newResult) {
   // console.log(logEntry.number);
 }
 
-function calculateResult(operation){
+function calculateResult(operation) {
   //Provjera da li je tip operacije definisan
-  if(operation != "ADD" && operation != "SUBTRACT" && operation != "MULTIPLY" && operation != "DIVIDE")
-  {
+  if (
+    operation != "ADD" &&
+    operation != "SUBTRACT" &&
+    operation != "MULTIPLY" &&
+    operation != "DIVIDE"
+  ) {
     console.log("Nepoznat parametar");
     return;
   }
-  
+
   const userInputValue = getUserInputValue();
-  const resultBeforeCalculation = currentResult;
+
+  const dijeljenjeNulom = userInputValue === 0 && operation === "DIVIDE";
+  const unesenoNestoStoNijeNulaINevalidanUnos = userInputValue != 0 && !userInputValue;
   
+  if (dijeljenjeNulom || unesenoNestoStoNijeNulaINevalidanUnos) {
+    console.log("Korisnicki unos nije validan");
+    return;
+  }
+
+  const resultBeforeCalculation = currentResult;
+
   //Provjera tipa operacije
-  if(operation == "ADD")
-  {
+  if (operation == "ADD") {
     currentResult += userInputValue;
     createAndWriteOutput(resultBeforeCalculation, userInputValue, "+");
-  }
-  else if(operation == "SUBTRACT"){
+  } else if (operation == "SUBTRACT") {
     currentResult -= userInputValue;
     createAndWriteOutput(resultBeforeCalculation, userInputValue, "-");
-  }
-  else if(operation == "MULTIPLY"){
+  } else if (operation == "MULTIPLY") {
     currentResult *= userInputValue;
     createAndWriteOutput(resultBeforeCalculation, userInputValue, "*");
-  }
-  else if(operation == "DIVIDE"){
+  } else if (operation == "DIVIDE") {
     currentResult /= userInputValue;
     createAndWriteOutput(resultBeforeCalculation, userInputValue, "/");
   }
-
 
   writeToLog(operation, resultBeforeCalculation, userInputValue, currentResult);
 }
